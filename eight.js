@@ -1,18 +1,16 @@
-"use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-const express_1 = __importDefault(require("express"));
-const app = (0, express_1.default)();
-const port = 3000;
+import express from 'express'
+const app = express()
+const port = 3000
 
+/* const jsonBodyMiddleware = express.json()
+app.use(jsonBodyMiddleware)
+ */
 const HTTP_STATUSES = {
-    OK200:200,
-    CREATED:201,
-    NO_CONTENT:204,
-    BAD_REQUEST:400,
-    NOT_FOUND:400
+    OK200: 200,
+    CREATED: 201,
+    NO_CONTENT: 204,
+    BAD_REQUEST: 400,
+    NOT_FOUND: 400
 }
 
 const db = {
@@ -23,7 +21,6 @@ const db = {
         { id: 4, title: 'devops' }
     ]
 }
-
 
 app.get('/courses', (req, res) => {
     let foundCoursesQuery = db.courses
@@ -39,7 +36,6 @@ app.get('/courses/:id', (req, res) => {
         return
     }
     res.json(foundCourse)
-
 });
 app.delete('/courses/:id', (req, res) => {
     db.courses = db.courses.filter(c => c.id !== +req.params.id)
@@ -59,7 +55,6 @@ app.get('/courses/:id', (req, res) => {
     }
     foundCourse.title = req.body.title
     res.sendStatus(HTTP_STATUSES.NO_CONTENT)
-
 });
 /* app.post('/courses', (req, res) => {
     if(!req.body.title){
@@ -73,8 +68,6 @@ app.get('/courses/:id', (req, res) => {
     db.courses.push(createdCourse)
     res.status(HTTP_STATUSES.CREATED).json(createdCourse)
 }) */
-
-
 app.listen(port, () => {
     console.log(`Example app listening on port ${port}`);
 });
